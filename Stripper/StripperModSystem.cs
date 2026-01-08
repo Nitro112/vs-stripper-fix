@@ -228,29 +228,22 @@ namespace Stripper
             var charInv = inventories["character-" + player.PlayerUID];
             var hotbarInv = inventories["hotbar-" + player.PlayerUID];
 
-            try
+            foreach (ItemSlot slot in charInv)
 			{
-				foreach (ItemSlotCharacter slot in charInv)
+				if (ItemSlotCharacter.IsDressType(slot.Itemstack, EnumCharacterDressType.ArmorHead) || slot.BackgroundIcon == "armorhead")
 				{
-					if (ItemSlotCharacter.IsDressType(slot.Itemstack, EnumCharacterDressType.ArmorHead) || slot.BackgroundIcon == "armorhead")
-					{
-						this.headSlot = slot;
-					}
-
-					if (ItemSlotCharacter.IsDressType(slot.Itemstack, EnumCharacterDressType.ArmorBody) || slot.BackgroundIcon == "armorbody")
-					{
-						this.bodySlot = slot;
-					}
-
-					if (ItemSlotCharacter.IsDressType(slot.Itemstack, EnumCharacterDressType.ArmorLegs) || slot.BackgroundIcon == "armorlegs")
-					{
-						this.legSlot = slot;
-					}
+					this.headSlot = slot as ItemSlotCharacter;
 				}
-			}
-			catch(Exception e)
-			{
-				capi.ShowChatMessage("[Stripper Error]: " + e.Message);
+
+				if (ItemSlotCharacter.IsDressType(slot.Itemstack, EnumCharacterDressType.ArmorBody) || slot.BackgroundIcon == "armorbody")
+				{
+					this.bodySlot = slot as ItemSlotCharacter;
+				}
+
+				if (ItemSlotCharacter.IsDressType(slot.Itemstack, EnumCharacterDressType.ArmorLegs) || slot.BackgroundIcon == "armorlegs")
+				{
+					this.legSlot = slot as ItemSlotCharacter;
+				}
 			}
 
             foreach (ItemSlot slot in hotbarInv)
