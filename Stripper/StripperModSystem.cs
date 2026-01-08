@@ -228,23 +228,30 @@ namespace Stripper
             var charInv = inventories["character-" + player.PlayerUID];
             var hotbarInv = inventories["hotbar-" + player.PlayerUID];
 
-            foreach (ItemSlotCharacter slot in charInv)
-            {
-                if (ItemSlotCharacter.IsDressType(slot.Itemstack, EnumCharacterDressType.ArmorHead) || slot.BackgroundIcon == "armorhead")
-                {
-                    this.headSlot = slot;
-                }
+            try
+			{
+				foreach (ItemSlotCharacter slot in charInv)
+				{
+					if (ItemSlotCharacter.IsDressType(slot.Itemstack, EnumCharacterDressType.ArmorHead) || slot.BackgroundIcon == "armorhead")
+					{
+						this.headSlot = slot;
+					}
 
-                if (ItemSlotCharacter.IsDressType(slot.Itemstack, EnumCharacterDressType.ArmorBody) || slot.BackgroundIcon == "armorbody")
-                {
-                    this.bodySlot = slot;
-                }
+					if (ItemSlotCharacter.IsDressType(slot.Itemstack, EnumCharacterDressType.ArmorBody) || slot.BackgroundIcon == "armorbody")
+					{
+						this.bodySlot = slot;
+					}
 
-                if (ItemSlotCharacter.IsDressType(slot.Itemstack, EnumCharacterDressType.ArmorLegs) || slot.BackgroundIcon == "armorlegs")
-                {
-                    this.legSlot = slot;
-                }
-            }
+					if (ItemSlotCharacter.IsDressType(slot.Itemstack, EnumCharacterDressType.ArmorLegs) || slot.BackgroundIcon == "armorlegs")
+					{
+						this.legSlot = slot;
+					}
+				}
+			}
+			catch(Exception e)
+			{
+				capi.ShowChatMessage("[Stripper Error]: " + e.Message);
+			}
 
             foreach (ItemSlot slot in hotbarInv)
             {
